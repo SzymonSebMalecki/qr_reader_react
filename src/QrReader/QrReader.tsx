@@ -1,33 +1,31 @@
+import useScanner from "hooks/useScanner";
 import QrScanner from "qr-scanner";
 import React, { useEffect, useRef } from "react";
 import { ViewFinder } from "viewFinders/ViewFinder";
-import { QrReaderProps } from "../interfaces/index";
+import { QrReaderProps, ScannerSettings } from "../interfaces/index";
 import styles from "./QrReader.module.css";
 
 const QrReader = (props: QrReaderProps) => {
   const vid = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    if (vid.current) {
-      const qrScanner = new QrScanner(
-        vid.current,
-        (result) => console.log("decoded qr code:", result)
-        // No options provided. This will use the old api and is deprecated in the current version until next major version.
-      );
-      qrScanner.start();
 
-      return () => {
-        qrScanner.stop();
-      };
-    }
+  const scannerSettings: ScannerSettings = {
+    color: props.qrColor,
+    onResult: props.onResult,
+    onError: props.onError,
+    maxScansPerSecond: props.maxScansPerSecond
+  };
 
-    return;
-  }, [vid.current]);
+  useScanner(vid, scannerSettings);
 
   return (
     <section>
       <div className={styles.container}>
         {!!ViewFinder && <ViewFinder />}
-        <video className={styles.video} ref={vid}></video>
+        <video
+          style={{ transform: `translateX(50%)` }}
+          className={styles.video}
+          ref={vid}
+        ></video>
       </div>
     </section>
   );

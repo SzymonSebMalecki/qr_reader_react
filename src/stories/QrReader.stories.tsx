@@ -26,18 +26,17 @@ const QrReaderTemplate: ComponentStory<typeof QrReader> = (args) => {
     <div style={styles.container}>
       <QrReader
         {...args}
-        // videoStyle={{
-        //   display: "block",
-        // }}
-        // onResult={(result, error) => {
-        //   if (result) {
-        //     setData(result);
-        //   }
+        styles={{
+          video : {
 
-        //   if (error) {
-        //     setError(error.message);
-        //   }
-        // }}
+          },
+          videoContainer : {
+
+          },
+          container : {
+            
+          }
+        }}
       />
       <p>The value is: {JSON.stringify(data, null, 2)}</p>
       <p>The error is: {error}</p>

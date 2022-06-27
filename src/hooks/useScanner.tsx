@@ -1,22 +1,47 @@
+import { UseScanner } from "interfaces";
 import QrScanner from "qr-scanner";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-const useScanner = (vid: React.RefObject<HTMLVideoElement>) => {
+const useScanner: UseScanner = (
+  vid,
+  {
+    onResult = (result) => console.log(result),
+    color = "both",
+    maxScansPerSecond = 1,
+    onError = (error) => console.log(error),
+  }
+) => {
+  const inversion =
+    (color && color === "dark" && "original") ||
+    (color && color === "light" && "invert") ||
+    "both";
+
   useEffect(() => {
+    let qrScanner: QrScanner | null = null;
+    
     if (vid.current) {
-      const qrScanner = new QrScanner(
+      qrScanner = new QrScanner(
         vid.current,
-        (result) => console.log("decoded qr code:", result)
-        // No options provided. This will use the old api and is deprecated in the current version until next major version.
+        onResult,
+        {
+          onDecodeError: onError,
+          maxScansPerSecond,
+          highlightScanRegion: true,
+          highlightCodeOutline: true,
+        }
       );
+      if (!QrScanner.hasCamera()) {
+        console.log("No Camera");
+      }
+      qrScanner.setInversionMode(inversion);
       qrScanner.start();
-
-      return () => {
-        qrScanner.stop();
-      };
     }
 
-    return;
+    return () => {
+      qrScanner && qrScanner.stop();
+      qrScanner && qrScanner.destroy();
+      qrScanner = null;
+    };
   }, [vid.current]);
 };
 
