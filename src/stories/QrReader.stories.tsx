@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import ViewFinder from "ViewFinder/ViewFinder";
 import QrReader from "../QrReader/QrReader";
 import { ScanError, ScanResult } from "interfaces";
 
