@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { ViewFinder } from "viewFinders/ViewFinder";
+import ViewFinder from "ViewFinder/ViewFinder";
 import QrReader from "../QrReader/QrReader";
 import { ScanError, ScanResult } from "interfaces";
 
@@ -32,6 +32,7 @@ const QrReaderTemplate: ComponentStory<typeof QrReader> = (args) => {
           videoContainer: {},
           container: {},
         }}
+        centered
         // onResult={(result) => {
         //   setData(result);
         // }}

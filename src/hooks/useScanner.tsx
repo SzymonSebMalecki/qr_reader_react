@@ -7,7 +7,7 @@ const useScanner: UseScanner = (
   {
     onResult = (result) => console.log(result),
     color = "both",
-    maxScansPerSecond = 5,
+    maxScansPerSecond = 1, //change to 5
     onError = (error) => console.log(error),
   }
 ) => {
@@ -23,14 +23,14 @@ const useScanner: UseScanner = (
       qrScanner = new QrScanner(vid.current, onResult, {
         onDecodeError: onError,
         maxScansPerSecond,
-        // highlightScanRegion: true,
-        highlightCodeOutline: true,
       });
+
       if (!QrScanner.hasCamera()) {
-        console.log("No Camera");
+        onError("Device has no camera");
+      } else {
+        qrScanner.setInversionMode(inversion);
+        qrScanner.start();
       }
-      qrScanner.setInversionMode(inversion);
-      qrScanner.start();
     }
 
     return () => {
@@ -39,11 +39,6 @@ const useScanner: UseScanner = (
       qrScanner = null;
     };
   }, [vid.current]);
-
-  useEffect(() => {
-    if (vid.current)
-      vid.current.style.transform = `${vid.current.style.transform} translateX(50%)`;
-  }, [vid.current?.style.transform]);
 };
 
 export default useScanner;

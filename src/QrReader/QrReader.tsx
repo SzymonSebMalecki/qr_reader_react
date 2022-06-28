@@ -1,7 +1,6 @@
 import useScanner from "hooks/useScanner";
-import QrScanner from "qr-scanner";
-import React, { useEffect, useRef } from "react";
-import { ViewFinder } from "viewFinders/ViewFinder";
+import React, { useRef } from "react";
+import ViewFinder from "ViewFinder/ViewFinder";
 import { QrReaderProps, ScannerSettings } from "../interfaces/index";
 import styles from "./QrReader.module.css";
 
@@ -9,25 +8,31 @@ const QrReader = (props: QrReaderProps) => {
   const vid = useRef<HTMLVideoElement>(null);
 
   const scannerSettings: ScannerSettings = {
-    color: props.qrColor,
+    color: props.config?.qrColor,
     onResult: props.onResult,
     onError: props.onError,
-    maxScansPerSecond: props.maxScansPerSecond
+    maxScansPerSecond: props.config?.maxScansPerSecond,
   };
 
   useScanner(vid, scannerSettings);
 
+  const videoClasses = `${props.centered && styles.centered} ${
+    props["full-width"] && styles["full-width"]
+  }`;
+
   return (
-    <section>
-      <div className={styles.container}>
+    <div style={props.styles?.container}>
+      <div className={styles.container} style={props.styles?.videoContainer}>
         {!!ViewFinder && <ViewFinder />}
         <video
-          style={{ transform: `translateX(50%)` }}
-          className={styles.video}
+          style={props.styles?.video}
+          className={`${styles.video} ${videoClasses}`}
           ref={vid}
+          muted
+          autoPlay
         ></video>
       </div>
-    </section>
+    </div>
   );
 };
 export default QrReader;

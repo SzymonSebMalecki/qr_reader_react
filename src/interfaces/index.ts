@@ -3,12 +3,16 @@ import QrScanner from "qr-scanner";
 
 export interface QrReaderProps {
   ViewFinder?: React.JSXElementConstructor<any>;
-  styles?: QrReaderStyles;
   onResult?: OnResultFunction;
   onError?: OnErrorFunction;
-  qrColor?: QrColor;
-  maxScansPerSecond?: number;
-  cameraPreference?: CameraPreference;
+  styles?: QrReaderStyles;
+  config?: {
+    qrColor?: QrColor;
+    maxScansPerSecond?: number;
+    cameraPreference?: CameraPreference;
+  };
+  "full-width"?: boolean;
+  centered?: boolean;
 }
 
 export interface QrReaderStyles {
