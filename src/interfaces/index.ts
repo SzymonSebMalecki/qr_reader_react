@@ -2,7 +2,7 @@ import { CSSProperties } from "react";
 import QrScanner from "qr-scanner";
 
 export interface QrReaderProps {
-  ViewFinder?: React.JSXElementConstructor<any>;
+  viewFinderConfig?: ViewFinderConfig;
   onResult?: OnResultFunction;
   onError?: OnErrorFunction;
   styles?: QrReaderStyles;
@@ -14,12 +14,29 @@ export interface QrReaderProps {
   "full-width"?: boolean;
   centered?: boolean;
 }
+export interface ViewFinderProps {
+  outerColor?: string;
+  strokeWidth?: string;
+  borderColor?: string;
+  radius?: string;
+  length?: string;
+}
+export interface ViewFinderConfig extends ViewFinderProps {
+  visible?: boolean;
+  custom?: React.JSXElementConstructor<any>;
+}
 
-export interface QrReaderStyles {
+export type QrReaderStyles = {
   video?: CSSProperties;
   videoContainer?: CSSProperties;
   container?: CSSProperties;
-}
+};
+export type ScannerSettings = {
+  color: QrColor | undefined;
+  onResult: OnResultFunction | undefined;
+  onError: OnErrorFunction | undefined;
+  maxScansPerSecond: number | undefined;
+};
 
 export type QrColor = "dark" | "light" | "both";
 export type OnResultFunction = (result: QrScanner.ScanResult) => void;
@@ -30,13 +47,6 @@ export type UseScanner = (
   vid: React.RefObject<HTMLVideoElement>,
   scannerSettings: ScannerSettings
 ) => void;
-
-export interface ScannerSettings {
-  color: QrColor | undefined;
-  onResult: OnResultFunction | undefined;
-  onError: OnErrorFunction | undefined;
-  maxScansPerSecond: number | undefined;
-}
 
 export type ScanResult = QrScanner.ScanResult;
 export type ScanError = Error | string;

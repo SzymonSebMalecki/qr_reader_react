@@ -20,10 +20,19 @@ const QrReader = (props: QrReaderProps) => {
     props["full-width"] && styles["full-width"]
   }`;
 
+  let viewFinder;
+
+  if (props.viewFinderConfig?.visible)
+    viewFinder = props.viewFinderConfig.custom ? (
+      props.viewFinderConfig.custom
+    ) : (
+      <ViewFinder {...props.viewFinderConfig} />
+    );
+
   return (
     <div style={props.styles?.container}>
       <div className={styles.container} style={props.styles?.videoContainer}>
-        {!!ViewFinder && <ViewFinder />}
+        <>{viewFinder}</>
         <video
           style={props.styles?.video}
           className={`${styles.video} ${videoClasses}`}

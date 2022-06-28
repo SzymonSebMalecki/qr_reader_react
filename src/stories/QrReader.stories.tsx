@@ -49,5 +49,7 @@ const QrReaderTemplate: ComponentStory<typeof QrReader> = (args) => {
 export const QrReaderMain = QrReaderTemplate.bind({});
 
 QrReaderMain.args = {
-  ViewFinder,
+  viewFinderConfig: {
+    visible: true,
+  },
 };
