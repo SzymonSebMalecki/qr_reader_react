@@ -1,8 +1,20 @@
 import useScanner from "hooks/useScanner";
 import React, { useRef } from "react";
 import ViewFinder from "ViewFinder/ViewFinder";
-import { QrReaderProps, ScannerSettings } from "../interfaces/index";
+import {
+  QrReaderProps,
+  ScannerSettings,
+  ViewFinderConfig,
+} from "../interfaces/index";
 import styles from "./QrReader.module.css";
+
+const selectViewFinder = (viewFinderConfig: ViewFinderConfig) => {
+  return viewFinderConfig.custom ? (
+    viewFinderConfig.custom
+  ) : (
+    <ViewFinder {...viewFinderConfig} />
+  );
+};
 
 const QrReader = (props: QrReaderProps) => {
   const vid = useRef<HTMLVideoElement>(null);
@@ -20,14 +32,10 @@ const QrReader = (props: QrReaderProps) => {
     props["full-width"] && styles["full-width"]
   }`;
 
-  let viewFinder;
+  console.log(props.viewFinderConfig?.visible);
 
-  if (props.viewFinderConfig?.visible)
-    viewFinder = props.viewFinderConfig.custom ? (
-      props.viewFinderConfig.custom
-    ) : (
-      <ViewFinder {...props.viewFinderConfig} />
-    );
+  const viewFinder =
+    props.viewFinderConfig?.visible && selectViewFinder(props.viewFinderConfig);
 
   return (
     <div style={props.styles?.container}>

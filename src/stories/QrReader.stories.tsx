@@ -18,8 +18,6 @@ export default {
 
 //👇 We create a “template” of how args map to rendering
 const QrReaderTemplate: ComponentStory<typeof QrReader> = (args) => {
-  // <QrReader {...args} />
-
   const [error, setError] = useState<ScanError | undefined>(undefined);
   const [data, setData] = useState<ScanResult | undefined>(undefined);
 
@@ -32,16 +30,11 @@ const QrReaderTemplate: ComponentStory<typeof QrReader> = (args) => {
           videoContainer: {},
           container: {},
         }}
-        centered
-        // onResult={(result) => {
-        //   setData(result);
-        // }}
-        // onError={(error) => {
-        //   setError(error);
-        // }}
+        onResult={setData}
+        onError={setError}
       />
-      <p>The value is: {JSON.stringify(data, null, 2)}</p>
-      {/* <p>The error is: {console.log(error)}</p> */}
+      <div>The value is: {JSON.stringify(data, null, 2)}</div>
+      <div>The error is: {error?.toString()}</div>
     </div>
   );
 };
@@ -50,6 +43,6 @@ export const QrReaderMain = QrReaderTemplate.bind({});
 
 QrReaderMain.args = {
   viewFinderConfig: {
-    visible: true,
+    visible: false,
   },
 };

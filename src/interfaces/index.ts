@@ -3,6 +3,7 @@ import QrScanner from "qr-scanner";
 
 export interface QrReaderProps {
   viewFinderConfig?: ViewFinderConfig;
+  loaderConfig?: LoaderConfig;
   onResult?: OnResultFunction;
   onError?: OnErrorFunction;
   styles?: QrReaderStyles;
@@ -22,6 +23,11 @@ export interface ViewFinderProps {
   length?: string;
 }
 export interface ViewFinderConfig extends ViewFinderProps {
+  visible?: boolean;
+  custom?: React.JSXElementConstructor<any>;
+}
+
+export interface LoaderConfig {
   visible?: boolean;
   custom?: React.JSXElementConstructor<any>;
 }
