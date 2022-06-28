@@ -7,7 +7,7 @@ const useScanner: UseScanner = (
   {
     onResult = (result) => console.log(result),
     color = "both",
-    maxScansPerSecond = 1,
+    maxScansPerSecond = 5,
     onError = (error) => console.log(error),
   }
 ) => {
@@ -18,18 +18,14 @@ const useScanner: UseScanner = (
 
   useEffect(() => {
     let qrScanner: QrScanner | null = null;
-    
+
     if (vid.current) {
-      qrScanner = new QrScanner(
-        vid.current,
-        onResult,
-        {
-          onDecodeError: onError,
-          maxScansPerSecond,
-          highlightScanRegion: true,
-          highlightCodeOutline: true,
-        }
-      );
+      qrScanner = new QrScanner(vid.current, onResult, {
+        onDecodeError: onError,
+        maxScansPerSecond,
+        // highlightScanRegion: true,
+        highlightCodeOutline: true,
+      });
       if (!QrScanner.hasCamera()) {
         console.log("No Camera");
       }
@@ -43,6 +39,11 @@ const useScanner: UseScanner = (
       qrScanner = null;
     };
   }, [vid.current]);
+
+  useEffect(() => {
+    if (vid.current)
+      vid.current.style.transform = `${vid.current.style.transform} translateX(50%)`;
+  }, [vid.current?.style.transform]);
 };
 
 export default useScanner;

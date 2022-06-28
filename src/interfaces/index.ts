@@ -18,8 +18,8 @@ export interface QrReaderStyles {
 }
 
 export type QrColor = "dark" | "light" | "both";
-export type OnResultFunction = (result?: QrScanner.ScanResult) => void;
-export type OnErrorFunction = (error: Error | string) => void;
+export type OnResultFunction = (result: QrScanner.ScanResult) => void;
+export type OnErrorFunction = (error: ScanError) => void;
 export type CameraPreference = QrScanner.FacingMode | QrScanner.DeviceId;
 
 export type UseScanner = (
@@ -33,3 +33,6 @@ export interface ScannerSettings {
   onError: OnErrorFunction | undefined;
   maxScansPerSecond: number | undefined;
 }
+
+export type ScanResult = QrScanner.ScanResult;
+export type ScanError = Error | string;

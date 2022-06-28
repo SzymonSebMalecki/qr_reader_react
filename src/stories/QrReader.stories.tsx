@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import QrReader from "../QrReader/QrReader";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { ViewFinder } from "viewFinders/ViewFinder";
+import QrReader from "../QrReader/QrReader";
+import { ScanError, ScanResult } from "interfaces";
 
 const styles = {
   container: {
@@ -19,27 +20,27 @@ export default {
 const QrReaderTemplate: ComponentStory<typeof QrReader> = (args) => {
   // <QrReader {...args} />
 
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+  const [error, setError] = useState<ScanError | undefined>(undefined);
+  const [data, setData] = useState<ScanResult | undefined>(undefined);
 
   return (
     <div style={styles.container}>
       <QrReader
         {...args}
         styles={{
-          video : {
-
-          },
-          videoContainer : {
-
-          },
-          container : {
-            
-          }
+          video: {},
+          videoContainer: {},
+          container: {},
         }}
+        // onResult={(result) => {
+        //   setData(result);
+        // }}
+        // onError={(error) => {
+        //   setError(error);
+        // }}
       />
       <p>The value is: {JSON.stringify(data, null, 2)}</p>
-      <p>The error is: {error}</p>
+      {/* <p>The error is: {console.log(error)}</p> */}
     </div>
   );
 };
