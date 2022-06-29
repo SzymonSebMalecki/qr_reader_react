@@ -1,1 +1,1 @@
-export * from "QrReader/QrReader";
+export * from "./QrReader/QrReader";

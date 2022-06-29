@@ -13,7 +13,6 @@ export interface QrReaderProps {
     cameraPreference?: CameraPreference;
   };
   "full-width"?: boolean;
-  centered?: boolean;
 }
 export interface ViewFinderProps {
   outerColor?: string;

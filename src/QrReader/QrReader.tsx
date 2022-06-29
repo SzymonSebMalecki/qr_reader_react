@@ -28,12 +28,6 @@ const QrReader = (props: QrReaderProps) => {
 
   useScanner(vid, scannerSettings);
 
-  const videoClasses = `${props.centered && styles.centered} ${
-    props["full-width"] && styles["full-width"]
-  }`;
-
-  console.log(props.viewFinderConfig?.visible);
-
   const viewFinder =
     props.viewFinderConfig?.visible && selectViewFinder(props.viewFinderConfig);
 
@@ -43,7 +37,9 @@ const QrReader = (props: QrReaderProps) => {
         <>{viewFinder}</>
         <video
           style={props.styles?.video}
-          className={`${styles.video} ${videoClasses}`}
+          className={`${styles.video} ${
+            props["full-width"] && styles["full-width"]
+          }`}
           ref={vid}
           muted
           autoPlay

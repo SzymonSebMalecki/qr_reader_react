@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "typeRoots": ["index.d.ts", "node_modules/@types"],
     "outDir": "./dist",
-
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "strict": true,

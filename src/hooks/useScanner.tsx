@@ -7,7 +7,7 @@ const useScanner: UseScanner = (
   {
     onResult = (result) => console.log(result),
     color = "both",
-    maxScansPerSecond = 1, //change to 5
+    maxScansPerSecond = 5, //change to 5
     onError = (error) => console.log(error),
   }
 ) => {
